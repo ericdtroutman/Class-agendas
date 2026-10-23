@@ -5,11 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Daily Agenda</title>
 <link rel="stylesheet" href="../assets/agenda.css">
+<style>
+  .slide-block { margin: 0 0 18px; }
+  .slide-block[hidden] { display: none; }
+  .slide-wrap { position: relative; width: 100%; padding-top: 56.25%; border-radius: 10px; overflow: hidden;
+    box-shadow: 0 2px 8px rgba(63,69,81,.16); background: #2b2118; }
+  .slide-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .slide-block .links { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 0; }
+</style>
 </head>
 <body>
 <h1 id="heading">What We Did Each Day</h1>
 <p class="sub">Mr. Troutman · Missed a class? Find the day below to see what we did and what to catch up on.</p>
-<p><a class="navbtn" href="slide/">📺 See today's slide</a></p>
+<!-- TODAY'S SLIDE: paste Canva's embed link (Share → See all → Embed, the address ending in /view?embed)
+     between the quotes below. Leave it empty and this block stays hidden. -->
+<div class="slide-block" id="slide" hidden></div>
+<script>
+(function () {
+  var SLIDE_EMBED = "https://www.canva.com/design/DAHY2SUktSU/8HiN6q_SSdul33TaocHtAw/view?embed";
+  if (!SLIDE_EMBED) return;
+  var box = document.getElementById("slide");
+  box.innerHTML =
+    '<div class="slide-wrap"><iframe loading="lazy" title="Astro/Ocean daily slide" allowfullscreen allow="fullscreen"></iframe></div>' +
+    '<div class="links"><a class="navbtn" target="_blank" rel="noopener">Open today’s slide full screen ↗</a></div>';
+  box.querySelector("iframe").src = SLIDE_EMBED;
+  box.querySelector("a").href = SLIDE_EMBED.replace(/\?embed$/, "");
+  box.hidden = false;
+})();
+</script>
 <div class="today-card" id="today"></div>
 <div class="chips" id="chips" role="group" aria-label="Show"></div>
 <div class="weeknav" id="weeknav"></div>
