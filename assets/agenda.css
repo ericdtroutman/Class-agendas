@@ -88,3 +88,142 @@
   .canvas-link::after { content: " ↗"; font-size: .8em; }
   .solvenote { color: var(--muted); font-style: italic; }
   a.navbtn { display: inline-block; text-decoration: none; color: var(--ink); }
+
+/* =====================  SEASONAL THEME  =====================
+   Colors, fonts and pictures are picked by the Decor Calendar in agenda.js.
+   Without it (or before 9/2) the page keeps the plain look above. */
+html[data-season] { background: var(--pg2); overflow-x: hidden; }
+html[data-season] body {
+  max-width: none; padding-left: max(16px, calc((100% - 828px) / 2)); padding-right: max(16px, calc((100% - 828px) / 2));
+  background-color: var(--pg2);
+  background-image: var(--wallpaper), linear-gradient(180deg, var(--pg1), var(--pg2));
+  background-size: 240px 240px, 100% 100%;
+  background-attachment: fixed, fixed;
+  min-height: 100vh; position: relative; padding-bottom: 0;
+  display: flex; flex-direction: column;
+}
+html[data-season] body > *:not(.season-fall) { position: relative; z-index: 1; }
+html[data-season] .today-card,
+html[data-season] .day { background: var(--card); box-shadow: 0 3px 12px rgba(40, 25, 10, .10); }
+html[data-dark] .today-card, html[data-dark] .day { box-shadow: 0 4px 16px rgba(0, 0, 0, .35); }
+html[data-season] .today-card { background: var(--today-soft); position: relative; }
+html[data-season] .day.is-today { background: var(--today-soft); }
+html[data-season] .day.off { background: color-mix(in srgb, var(--card) 80%, var(--pg2)); }
+html[data-season] .today-card::after {
+  content: ""; position: absolute; right: 14px; top: -20px; width: 58px; height: 58px;
+  background: var(--corner) no-repeat center / contain; transform: rotate(8deg);
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,.18));
+}
+html[data-season] .today-card h2, html[data-season] .title, html[data-season] .weeknav .range {
+  font-family: var(--head-font); letter-spacing: .01em;
+}
+html[data-season] .today-card h2 { font-size: 1.3rem; }
+html[data-season] .today-card .label, html[data-season] .badge, html[data-season] .unit-head { font-family: var(--head-font); }
+html[data-season] .unit-head, html[data-season] .weeknav .range, html[data-season] footer, html[data-season] .empty { color: var(--page-ink); }
+html[data-season] .unit-head .dot { box-shadow: 0 0 0 3px color-mix(in srgb, var(--card) 70%, transparent); }
+html[data-season] .chip, html[data-season] .navbtn { background: var(--card); box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+html[data-season] .chip[aria-pressed="true"] { background: var(--today); border-color: var(--today); color: #fff; }
+html[data-season] footer { opacity: .85; margin-top: 26px; }
+
+/* banner */
+.season-band {
+  position: relative; overflow: hidden; border-radius: 16px; margin: 0 0 16px;
+  padding: 16px 18px 14px; min-height: 120px;
+  background: linear-gradient(110deg, var(--band-a), var(--band-b));
+  color: var(--band-ink); box-shadow: 0 4px 16px rgba(30, 20, 40, .18);
+}
+.season-art { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.season-band::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, var(--band-a) 0%, var(--band-a) 30%, transparent 70%); opacity: .85;
+}
+.season-text { position: relative; max-width: 58%; }
+.season-band h1 { color: inherit; margin: 6px 0 2px; font-family: var(--h1-font); font-size: 1.7rem; font-weight: 700; line-height: 1.15; letter-spacing: .01em; }
+html[data-season="spooky"] .season-band h1 { font-weight: 400; font-size: 2rem; letter-spacing: .03em; }
+.season-band .sub { color: inherit; opacity: .9; margin: 4px 0 0; }
+.season-tag {
+  display: inline-block; font-family: var(--head-font); font-size: .74rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  padding: 2px 10px; border-radius: 999px; background: rgba(255,255,255,.28); border: 1px solid rgba(255,255,255,.45);
+}
+
+/* ground scene */
+.season-ground { flex: none; height: 110px; margin-top: auto !important; margin: 10px calc(-1 * max(16px, calc((100vw - 828px) / 2))) 0; overflow: hidden; }
+.season-ground-art { display: block; width: 100%; height: 100%; }
+
+/* drifting leaves / snow */
+.season-fall { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.season-fall span {
+  position: absolute; top: -40px; background: no-repeat center / contain; opacity: .55;
+  animation: season-drift linear infinite;
+}
+@keyframes season-drift {
+  0%   { transform: translate(0, -5vh) rotate(0deg); }
+  25%  { transform: translate(28px, 25vh) rotate(90deg); }
+  50%  { transform: translate(-18px, 55vh) rotate(180deg); }
+  75%  { transform: translate(24px, 82vh) rotate(270deg); }
+  100% { transform: translate(0, 110vh) rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) { .season-fall { display: none; } }
+
+/* ---- gentle motion (all of it stops for "reduce motion") ---- */
+.season-art .m, .season-ground-art .m { transform-box: fill-box; transform-origin: center; animation: 6s ease-in-out infinite; }
+.m-leaf, .m-blossom, .m-clover, .m-sprout, .m-pencil { animation-name: sway; }
+.m-blossom { animation-duration: 7s; }
+.m-pumpkin, .m-apple, .m-jack { animation-name: bob; animation-duration: 4.5s; }
+.m-star { animation-name: twinkle; animation-duration: 2.6s; }
+.m-moon, .m-sun { animation-name: float; animation-duration: 8s; }
+.m-batfly { animation-name: batfly; animation-duration: 11s; }
+.m-flap { animation: flap .45s ease-in-out infinite alternate !important; transform-origin: center; }
+.m-snow { animation-name: band-snow; animation-duration: 9s; animation-timing-function: linear; }
+.m-rain { animation-name: band-rain; animation-duration: 1.8s; animation-timing-function: linear; }
+.m-heart { animation-name: rise; animation-duration: 7s; animation-timing-function: linear; }
+.m-meteor { animation-name: streak; animation-duration: 7s; animation-timing-function: ease-in; }
+.m-cloud { animation-name: drift; animation-duration: 14s; }
+.m-wave { animation-name: bob; animation-duration: 3s; }
+.m-lights { animation-name: float; animation-duration: 6s; }
+.season-art .bulb { animation: bulb 2.4s ease-in-out infinite; }
+.season-art .halo, .season-ground-art .halo { transform-box: fill-box; transform-origin: center; animation: halo 4s ease-in-out infinite; }
+.flicker { animation: flicker 1.6s ease-in-out infinite; }
+.g-leaf, .g-flower, .g-sprout, .g-tree { animation-name: sway; animation-duration: 5s; transform-origin: bottom center !important; }
+.g-pumpkin, .g-jack, .g-apple, .g-shell { animation-name: none; }
+.g-star { animation-name: twinkle; animation-duration: 3s; }
+.g-snow { animation-name: sway; }
+html[data-season] .today-card::after { animation: wobble 5s ease-in-out infinite; }
+
+.season-glow {
+  position: absolute; inset: -40%; pointer-events: none;
+  background: radial-gradient(circle at 78% 45%, rgba(255, 214, 150, .35), transparent 45%);
+  animation: glow 7s ease-in-out infinite;
+}
+html[data-season="snow"] .season-glow, html[data-season="sky"] .season-glow { background: radial-gradient(circle at 78% 45%, rgba(255, 255, 255, .5), transparent 45%); }
+
+@keyframes sway    { 0%,100% { transform: rotate(-10deg) translateY(0); } 50% { transform: rotate(10deg) translateY(3px); } }
+@keyframes bob     { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes twinkle { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.7); } }
+@keyframes float   { 0%,100% { transform: translate(0, 0); } 50% { transform: translate(-4px, -5px); } }
+@keyframes batfly  { 0% { transform: translate(0, 0); } 25% { transform: translate(-26px, -10px); } 50% { transform: translate(-48px, 2px); } 75% { transform: translate(-22px, 10px); } 100% { transform: translate(0, 0); } }
+@keyframes flap    { from { transform: scaleX(1) scaleY(1); } to { transform: scaleX(.55) scaleY(1.1); } }
+@keyframes band-snow { 0% { transform: translate(0, -80px) rotate(0); } 50% { transform: translate(10px, 0) rotate(90deg); } 100% { transform: translate(0, 80px) rotate(180deg); } }
+@keyframes band-rain { 0% { transform: translate(0, -70px); opacity: 0; } 15% { opacity: 1; } 100% { transform: translate(-6px, 70px); opacity: .9; } }
+@keyframes rise    { 0% { transform: translateY(40px) scale(.8); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(-60px) scale(1.05); opacity: 0; } }
+@keyframes streak  { 0%,70% { transform: translate(60px, 30px); opacity: 0; } 78% { opacity: 1; } 100% { transform: translate(-40px, -20px); opacity: 0; } }
+@keyframes drift   { 0%,100% { transform: translateX(0); } 50% { transform: translateX(-24px); } }
+@keyframes bulb    { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+@keyframes halo    { 0%,100% { transform: scale(1); opacity: .25; } 50% { transform: scale(1.18); opacity: .45; } }
+@keyframes flicker { 0%,100% { opacity: .25; } 30% { opacity: .5; } 60% { opacity: .3; } 80% { opacity: .55; } }
+@keyframes wobble  { 0%,100% { transform: rotate(8deg); } 50% { transform: rotate(-4deg) translateY(-2px); } }
+@keyframes glow    { 0%,100% { opacity: .6; transform: translate(0, 0); } 50% { opacity: 1; transform: translate(-2%, 1%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .season-art *, .season-ground-art *, .season-glow, html[data-season] .today-card::after { animation: none !important; }
+}
+
+@media (max-width: 520px) {
+  .season-band { min-height: 0; padding-top: 12px; }
+  .season-text { max-width: 100%; }
+  .season-art { left: auto; width: 62%; height: 60px; }
+  .season-band::before { display: none; }
+  .season-band h1 { margin-top: 14px; font-size: 1.45rem; }
+  .season-ground { margin: 10px -12px 0; height: 80px; }
+  html[data-season] .today-card::after { width: 44px; height: 44px; top: -14px; }
+}
