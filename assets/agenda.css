@@ -38,6 +38,15 @@
   }
   .chip[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
 
+  .weeknav { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0 0 14px; }
+  .weeknav .range { font-weight: 600; min-width: 11ch; text-align: center; }
+  .navbtn {
+    border: 1px solid var(--line); background: var(--soft); color: var(--ink);
+    border-radius: 8px; padding: 6px 12px; font: inherit; font-size: .9rem; cursor: pointer;
+  }
+  .navbtn:disabled { opacity: .35; cursor: default; }
+  .navbtn.back { margin-left: auto; }
+
   .unit-head {
     display: flex; align-items: center; gap: 8px;
     font-size: .8rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;

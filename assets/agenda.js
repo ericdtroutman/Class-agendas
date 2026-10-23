@@ -46,17 +46,35 @@
       <div>${body}</div></div>`;
   }
 
-  function render(filter) {
+  let mode = "week", offset = 0; // offset = weeks away from the current week
+
+  function weekRange(today, off) {
+    const [mon, fri] = weekBounds(today);
+    mon.setDate(mon.getDate() + off * 7); fri.setDate(fri.getDate() + off * 7);
+    return [mon, fri];
+  }
+  function render() {
     const today = todayISO();
     let rows = C.days.slice().sort((a, b) => a.date.localeCompare(b.date));
-    if (filter === "week") {
-      const [mon, fri] = weekBounds(today);
+    const nav = document.getElementById("weeknav");
+    if (mode === "week") {
+      const [mon, fri] = weekRange(today, offset);
       rows = rows.filter(e => { const d = parse(e.date); return d >= mon && d <= fri; });
-    } else if (filter !== "all") {
-      rows = rows.filter(e => e.unit === filter);
+      const f = d => d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      const hasBefore = C.days.some(x => parse(x.date) < mon), hasAfter = C.days.some(x => parse(x.date) > fri);
+      nav.style.display = "";
+      nav.innerHTML = `<button class="navbtn" id="prevwk" aria-label="Previous week" ${hasBefore ? "" : "disabled"}>&#9664;</button>
+        <span class="range">${offset === 0 ? "This week · " : ""}${f(mon)} to ${f(fri)}</span>
+        <button class="navbtn" id="nextwk" aria-label="Next week" ${hasAfter ? "" : "disabled"}>&#9654;</button>
+        ${offset !== 0 ? '<button class="navbtn back" id="thiswk">Back to this week</button>' : ""}`;
+      nav.querySelector("#prevwk").onclick = () => { offset--; render(); };
+      nav.querySelector("#nextwk").onclick = () => { offset++; render(); };
+      const tw = nav.querySelector("#thiswk"); if (tw) tw.onclick = () => { offset = 0; render(); };
+    } else {
+      nav.style.display = "none"; nav.innerHTML = "";
     }
     const list = document.getElementById("list");
-    if (!rows.length) { list.innerHTML = '<p class="empty">Nothing posted for this week yet.</p>'; return; }
+    if (!rows.length) { list.innerHTML = '<p class="empty">Nothing posted for this week.</p>'; return; }
     let html = "", lastUnit = null;
     for (const e of rows) {
       if (e.unit !== lastUnit) {
@@ -82,14 +100,15 @@
   document.title = C.name + " Daily Agenda";
   document.getElementById("heading").textContent = C.name + ": What We Did Each Day";
   const chips = document.getElementById("chips");
-  const filters = [["week", "This week"], ...C.units.map(u => [u, u]), ["all", "Everything"]];
+  const filters = [["week", "This week"], ["all", "Everything"]];
   chips.innerHTML = filters.map(([f, label], i) =>
     `<button class="chip" data-filter="${esc(f)}" aria-pressed="${i === 0}">${esc(label)}</button>`).join("");
   chips.querySelectorAll(".chip").forEach(btn => btn.addEventListener("click", () => {
     chips.querySelectorAll(".chip").forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
-    render(btn.dataset.filter);
+    mode = btn.dataset.filter; offset = 0;
+    render();
   }));
   document.getElementById("updated").textContent = fmt(C.updated, { month: "long", day: "numeric", year: "numeric" });
   renderToday();
-  render("week");
+  render();
 })();
