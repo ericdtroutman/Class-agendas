@@ -87,3 +87,4 @@
   .canvas-link { font-weight: 600; }
   .canvas-link::after { content: " ↗"; font-size: .8em; }
   .solvenote { color: var(--muted); font-style: italic; }
+  a.navbtn { display: inline-block; text-decoration: none; color: var(--ink); }
