@@ -39,6 +39,7 @@
         return esc(m.name);
       }).join(" · ")}</div>`;
     }
+    if (C.solveNote && !e.off && !(e.mats || []).some(m => /SOLVE/i.test(m.name))) body += `<div class="mats"><b>SOLVE:</b> <span class="solvenote">${esc(C.solveNote)}</span></div>`;
     if (e.missed) body += `<div class="missed"><b>If you missed it:</b> ${esc(e.missed)}</div>`;
     return `<div class="${cls.join(" ")}" style="--unit:${unitColor[e.unit] || "#5d6779"}">
       <div class="date"><span class="dow">${fmt(e.date, { weekday: "short" })}</span>${fmt(e.date, { month: "numeric", day: "numeric" })}
