@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Agenda</title>
+<link rel="stylesheet" href="../assets/agenda.css">
+</head>
+<body>
+<h1 id="heading">What We Did Each Day</h1>
+<p class="sub">Mr. Troutman · Missed a class? Find the day below to see what we did and what to catch up on.</p>
+<div class="today-card" id="today"></div>
+<div class="chips" id="chips" role="group" aria-label="Show"></div>
+<div id="list"></div>
+<footer>Last updated <span id="updated"></span></footer>
+<script>
+/* ==========================================================================
+   AGENDA DATA: one entry per day. Same format as the Astro/Ocean page.
+   ========================================================================== */
+window.CLASS = {
+  name: "Earth and Space Science",
+  updated: "2026-10-23",
+  units: [],
+  days: []
+};
+/* ======================= END OF AGENDA DATA ============================= */
+</script>
+<script src="../assets/agenda.js"></script>
+</body>
+</html>
