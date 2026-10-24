@@ -229,6 +229,7 @@
     if (e.off) cls.push("off");
     if (e.date === today) cls.push("is-today");
     let body = `<p class="title">${esc(e.title)}</p>`;
+    if (e.li) body += `<p class="li"><b>Learning intention:</b> ${esc(e.li)}</p>`;
     if (e.did && e.did.length) body += `<ul>${e.did.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
     if (e.mats && e.mats.length) {
       body += `<div class="mats"><b>Materials:</b> ${e.mats.map(m => {
@@ -294,7 +295,7 @@
     if (!e) { e = days.find(x => x.date > today && !x.off); label = "Next class"; }
     if (!e) { card.style.display = "none"; return; }
     card.innerHTML = `<div class="label">${label} · ${fmt(e.date, { weekday: "long", month: "long", day: "numeric" })}</div>
-      <h2>${esc(e.title)}</h2>${e.did ? `<div>${e.did.map(esc).join(" ")}</div>` : ""}`;
+      <h2>${esc(e.title)}</h2>${e.li ? `<p class="li"><b>Learning intention:</b> ${esc(e.li)}</p>` : ""}${e.did ? `<div>${e.did.map(esc).join(" ")}</div>` : ""}`;
   }
 
   document.title = C.name + " Daily Agenda";
