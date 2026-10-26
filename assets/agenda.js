@@ -224,6 +224,22 @@
   function esc(s) { const el = document.createElement("span"); el.textContent = s; return el.innerHTML; }
   function safeUrl(u) { return /^https?:\/\//i.test(u) ? u : "#"; }
 
+  // Materials (assignment links) + SOLVE line. Used by the day cards AND the Today card,
+  // so the Today card always shows the same links as that day's card. Keep it that way.
+  function matsHTML(e) {
+    let out = "";
+    if (e.mats && e.mats.length) {
+      out += `<div class="mats"><b>Materials:</b> ${e.mats.map(m => {
+        // Canvas items open in the Canvas tab itself (the page is embedded there); other sites open a new tab
+        if (m.canvas && C.canvasCourse) return `<a class="canvas-link" href="${esc(safeUrl(C.canvasCourse + "/" + m.canvas))}" target="_top">${esc(m.name)}</a>`;
+        if (m.url) return `<a href="${esc(safeUrl(m.url))}" target="_blank" rel="noopener">${esc(m.name)}</a>`;
+        return esc(m.name);
+      }).join(" · ")}</div>`;
+    }
+    if (C.solveNote && !e.off && !(e.mats || []).some(m => /SOLVE/i.test(m.name))) out += `<div class="mats"><b>SOLVE:</b> <span class="solvenote">${esc(C.solveNote)}</span></div>`;
+    return out;
+  }
+
   function dayHTML(e, today) {
     const cls = ["day"];
     if (e.off) cls.push("off");
@@ -231,15 +247,7 @@
     let body = `<p class="title">${esc(e.title)}</p>`;
     if (e.li) body += `<p class="li"><b>Learning intention:</b> ${esc(e.li)}</p>`;
     if (e.did && e.did.length) body += `<ul>${e.did.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
-    if (e.mats && e.mats.length) {
-      body += `<div class="mats"><b>Materials:</b> ${e.mats.map(m => {
-        // Canvas items open in the Canvas tab itself (the page is embedded there); other sites open a new tab
-        if (m.canvas && C.canvasCourse) return `<a class="canvas-link" href="${esc(safeUrl(C.canvasCourse + "/" + m.canvas))}" target="_top">${esc(m.name)}</a>`;
-        if (m.url) return `<a href="${esc(safeUrl(m.url))}" target="_blank" rel="noopener">${esc(m.name)}</a>`;
-        return esc(m.name);
-      }).join(" · ")}</div>`;
-    }
-    if (C.solveNote && !e.off && !(e.mats || []).some(m => /SOLVE/i.test(m.name))) body += `<div class="mats"><b>SOLVE:</b> <span class="solvenote">${esc(C.solveNote)}</span></div>`;
+    body += matsHTML(e);
     if (e.missed) body += `<div class="missed"><b>If you missed it:</b> ${esc(e.missed)}</div>`;
     return `<div class="${cls.join(" ")}" style="--unit:${unitColor[e.unit] || "#5d6779"}">
       <div class="date"><span class="dow">${fmt(e.date, { weekday: "short" })}</span>${fmt(e.date, { month: "numeric", day: "numeric" })}
@@ -295,7 +303,7 @@
     if (!e) { e = days.find(x => x.date > today && !x.off); label = "Next class"; }
     if (!e) { card.style.display = "none"; return; }
     card.innerHTML = `<div class="label">${label} · ${fmt(e.date, { weekday: "long", month: "long", day: "numeric" })}</div>
-      <h2>${esc(e.title)}</h2>${e.li ? `<p class="li"><b>Learning intention:</b> ${esc(e.li)}</p>` : ""}${e.did ? `<div>${e.did.map(esc).join(" ")}</div>` : ""}`;
+      <h2>${esc(e.title)}</h2>${e.li ? `<p class="li"><b>Learning intention:</b> ${esc(e.li)}</p>` : ""}${e.did ? `<div>${e.did.map(esc).join(" ")}</div>` : ""}${matsHTML(e)}`;
   }
 
   document.title = C.name + " Daily Agenda";
