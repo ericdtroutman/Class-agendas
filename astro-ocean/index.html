@@ -17,7 +17,7 @@
 <body>
 <h1 id="heading">What We Did Each Day</h1>
 <p class="sub">Mr. Troutman · Missed a class? Find the day below to see what we did and what to catch up on.</p>
-<p class="interactive-wrap"><a class="interactive-btn" href="https://troutmanscience.com" target="_blank" rel="noopener">Click here for interactives ↗</a></p>
+<p class="interactive-wrap" id="interactive"><a class="interactive-btn" href="https://troutmanscience.com" target="_blank" rel="noopener">Click here for interactives ↗</a></p>
 <!-- TODAY'S SLIDE: paste Canva's embed link (Share → See all → Embed, the address ending in /view?embed)
      between the quotes below. Leave it empty and this block stays hidden. -->
 <div class="slide-block" id="slide" hidden></div>
@@ -32,6 +32,9 @@
   box.querySelector("iframe").src = SLIDE_EMBED;
   box.querySelector("a").href = SLIDE_EMBED.replace(/\?embed$/, "");
   box.hidden = false;
+  // put the interactives button on the right end of the slide button row
+  var ib = document.querySelector("#interactive a");
+  if (ib) { box.querySelector(".links").appendChild(ib); document.getElementById("interactive").remove(); }
 })();
 </script>
 <div class="today-card" id="today"></div>

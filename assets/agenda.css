@@ -230,13 +230,13 @@ html[data-season="snow"] .season-glow, html[data-season="sky"] .season-glow { ba
   html[data-season] .today-card::after { width: 44px; height: 44px; top: -14px; }
 }
 
-/* big button to troutmanscience.com interactives */
-.interactive-wrap { margin: 0 0 18px; }
+/* button to troutmanscience.com interactives: sits at the right end of the
+   "Open today's slide" row; if there's no slide it stays on its own line */
+.interactive-wrap { margin: 0 0 18px; text-align: right; }
+.slide-block .links a.interactive-btn { margin-left: auto; }
 a.interactive-btn {
-  display: inline-block; padding: 12px 22px; border-radius: 12px;
-  background: var(--today); color: #fff; font-weight: 700; font-size: 1.1rem;
-  text-decoration: none; box-shadow: 0 3px 10px rgba(0,0,0,.18);
+  display: inline-block; padding: 6px 14px; border-radius: 8px; border: 1px solid var(--today);
+  background: var(--today); color: #fff; font-weight: 700; font-size: .95rem;
+  text-decoration: none; box-shadow: 0 1px 4px rgba(0,0,0,.12);
 }
 a.interactive-btn:hover, a.interactive-btn:focus-visible { filter: brightness(1.08); text-decoration: underline; }
-html[data-season] a.interactive-btn { font-family: var(--head-font); }
-@media (max-width: 520px) { a.interactive-btn { display: block; text-align: center; } }
