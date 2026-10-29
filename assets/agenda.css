@@ -229,3 +229,14 @@ html[data-season="snow"] .season-glow, html[data-season="sky"] .season-glow { ba
   .season-ground { margin: 10px -12px 0; height: 80px; }
   html[data-season] .today-card::after { width: 44px; height: 44px; top: -14px; }
 }
+
+/* big button to troutmanscience.com interactives */
+.interactive-wrap { margin: 0 0 18px; }
+a.interactive-btn {
+  display: inline-block; padding: 12px 22px; border-radius: 12px;
+  background: var(--today); color: #fff; font-weight: 700; font-size: 1.1rem;
+  text-decoration: none; box-shadow: 0 3px 10px rgba(0,0,0,.18);
+}
+a.interactive-btn:hover, a.interactive-btn:focus-visible { filter: brightness(1.08); text-decoration: underline; }
+html[data-season] a.interactive-btn { font-family: var(--head-font); }
+@media (max-width: 520px) { a.interactive-btn { display: block; text-align: center; } }
