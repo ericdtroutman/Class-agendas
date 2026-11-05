@@ -14,6 +14,7 @@ spec.json:
      "pdf": "pdf/Write the Algorithm (Student Copy).pdf", "body": "One or two sentences for students."},
     {"type": "mastery", "title": "Carbon Cycle Mastery Check", "date": "2026-10-29"},   # ESS quiz placeholder, no points
     {"type": "entry", "title": "Rock Cycle Put It Together", "date": "2026-10-27", "pdf": "..."},  # ESS entry ticket, 1 pt
+    {"type": "quiz", "title": "Segment 2 Quiz", "date": "2026-11-10", "qti": "quiz/3.4 Segment 2 Quiz.zip"},  # Astro only: Eric's Canvas quiz export
     {"type": "page", "title": "Anchor Chart 3 (in progress)", "date": "2026-11-13", "pdf": "...",
      "body": "...", "days": ["Fri 11/13: pages 2 and 3 (Gravity and Orbits)"]}   # unnumbered page + calendar event
   ]
@@ -50,7 +51,7 @@ def main(spec_path, out_dir):
     spec = json.loads(spec_path.read_text())
     c = CLASSES[spec["class"]]
     out = Path(out_dir); (out / "assignments").mkdir(parents=True, exist_ok=True); (out / "pdf").mkdir(exist_ok=True)
-    assignments, items, files, table, pages = [], [], [], [], []
+    assignments, items, files, table, pages, quizzes, refs = [], [], [], [], [], [], []
     for it in spec["items"]:
         d = date.fromisoformat(it["date"])
         t = it["type"]
@@ -71,6 +72,21 @@ def main(spec_path, out_dir):
             (out / f"pages/{key}.html").write_text(body or "<p></p>\n")
             pages.append({"key": key, "slug": key, "title": it["title"], "body_file": f"pages/{key}.html",
                           "date": d.isoformat(), "course_wide": True})
+            continue
+        if t == "quiz":
+            # Astro only: Eric's own Canvas quiz export (.zip). Questions are never read or changed.
+            src = (spec_path.parent / it["qti"]).resolve()
+            (out / "quiz").mkdir(exist_ok=True)
+            shutil.copy(src, out / "quiz" / src.name)
+            zq = zipfile.ZipFile(src)
+            meta = next(n for n in zq.namelist() if n.endswith("/assessment_meta.xml"))
+            ident = meta.split("/")[0]
+            m = re.search(r"<points_possible>([\d.]+)</points_possible>", zq.read(meta).decode())
+            key = it.get("key") or slug(it["title"])
+            quizzes.append({"key": key, "title": it["title"], "due": f"{d.isoformat()} 23:59", "qti_zip": f"quiz/{src.name}"})
+            items.append({"type": "quiz", "ref": key})
+            table.append((it["title"], float(m.group(1)) if m else None, d, "Canvas quiz", src.name))
+            refs.append((key, "Quizzes::Quiz", ident))
             continue
         if t == "ticket":
             title, key, pts, sub = f"{md_(d)} Ticket In", f"ticket-in-{d:%m-%d}", 1, ["online_text_entry"]
@@ -96,8 +112,9 @@ def main(spec_path, out_dir):
                             "submission_types": sub, "body_file": bf})
         items.append({"type": "assignment", "ref": key})
         table.append((title, pts, d, sub[0], Path(it["pdf"]).name if it.get("pdf") else ""))
+        refs.append((key, "Assignment", build_week.gid(c["course"], spec["week_id"], "assignment", key)))
     week = {"course": c["course"], "week_id": spec["week_id"], "timezone": "America/New_York", "publish": True,
-            "pages": pages, "files": files, "assignments": assignments, "module_items": items,
+            "pages": pages, "files": files, "assignments": assignments, "quizzes": quizzes, "module_items": items,
             "notebook": {"key": c["nb"], "title": c["nb_title"], "start": spec["start"]}}
     # Everything imported into the notebook before this week goes back into the file, or Canvas
     # removes it from the module (see build_week.py). Re-running a week replaces that week's entries.
@@ -113,10 +130,9 @@ def main(spec_path, out_dir):
     build_week.build(out / "week.json", imscc)
     check(imscc)
     mine = []
-    for pos, (a, (title, *_)) in enumerate(zip(assignments, table), spec["start"]):
-        mine.append({"week_id": spec["week_id"], "num": pos, "title": f"{pos}. {title}",
-                     "item_id": build_week.gid(c["course"], spec["week_id"], "item", str(pos), a["key"]),
-                     "ref_id": build_week.gid(c["course"], spec["week_id"], "assignment", a["key"])})
+    for pos, ((key, ctype, ref_id), (title, *_)) in enumerate(zip(refs, table), spec["start"]):
+        mine.append({"week_id": spec["week_id"], "num": pos, "title": f"{pos}. {title}", "content_type": ctype,
+                     "item_id": build_week.gid(c["course"], spec["week_id"], "item", str(pos), key), "ref_id": ref_id})
     ledger[spec["class"]] = earlier + mine
     ledger_path.write_text(json.dumps(ledger, indent=2) + "\n")
     print(f"Module in this file: {len(earlier)} earlier imported items + {len(mine)} new. Ledger updated: commit tools/notebook_ledger.json.")

@@ -17,7 +17,7 @@ body with  $IMS-CC-FILEBASE$/ess-notebook/name.pdf  (add class
 
 "points": null (or leaving points out with "no_points": true) leaves the points blank.
 """
-import hashlib, json, sys, zipfile, html
+import hashlib, json, re, sys, zipfile, html
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from pathlib import Path
@@ -84,9 +84,10 @@ def build(cfg_path, out_path):
     if nb:
         first_pos = nb.get("start", 1)
         by_key = {a["key"]: a for a in cfg["assignments"]}
+        by_key.update({q["key"]: q for q in cfg.get("quizzes", [])})
         n = first_pos
         for it in cfg["module_items"]:
-            if it["type"] == "assignment":
+            if it["type"] in ("assignment", "quiz"):
                 by_key[it["ref"]]["title"] = f"{n}. {by_key[it['ref']]['title']}"
             n += 1
 
@@ -171,6 +172,34 @@ def build(cfg_path, out_path):
             text = text.replace("{{page:%s}}" % k, f"$WIKI_REFERENCE$/pages/{slug}")
         return text
 
+    # ---- quizzes: Eric's own Canvas quiz export (.zip with <id>/<id>.xml + <id>/assessment_meta.xml).
+    # The questions are copied byte for byte and never read; only the settings file changes
+    # (number + title, due 11:59 PM, published, no assignment group, no lock dates).
+    # The quiz keeps the ID from Eric's export, so importing either file again updates the same quiz.
+    quiz_ids = {}
+    for q in cfg.get("quizzes", []):
+        zq = zipfile.ZipFile(base / q["qti_zip"])
+        metas = [n for n in zq.namelist() if n.endswith("/assessment_meta.xml")]
+        if len(metas) != 1:
+            raise SystemExit(f"{q['qti_zip']}: expected one quiz, found {len(metas)}")
+        ident = metas[0].split("/")[0]
+        meta = zq.read(metas[0]).decode("utf-8")
+        if "<assignment " in meta:
+            raise SystemExit(f"{q['qti_zip']}: settings file has an <assignment> block; update build_week.py to set its due date too")
+        qti = zq.read(f"{ident}/{ident}.xml")
+        def setv(xml, tag, val):
+            xml = re.sub(rf"<{tag}>.*?</{tag}>|<{tag}/>", "", xml, flags=re.S)
+            return xml.replace("</quiz>", f"<{tag}>{val}</{tag}>\n</quiz>")
+        meta = setv(meta, "title", esc(q["title"]))
+        meta = setv(meta, "due_at", to_utc(q["due"], tz))
+        meta = setv(meta, "available", "true" if published else "false")
+        meta = setv(meta, "assignment_group_identifierref", "")
+        for tag in ("lock_at", "unlock_at"):
+            meta = re.sub(rf"<{tag}>.*?</{tag}>", "", meta, flags=re.S)
+        files[f"{ident}/assessment_meta.xml"] = meta
+        binaries[f"non_cc_assessments/{ident}.xml.qti"] = qti
+        quiz_ids[q["key"]] = ident
+
     # ---- pages
     page_ids, page_slugs = {}, {}
     for p in cfg.get("pages", []):
@@ -218,7 +247,7 @@ def build(cfg_path, out_path):
     # (no migration ID) are never touched. These go first so the order stays the same.
     for it in cfg.get("existing_items", []):
         items_xml.append(f"""      <item identifier="{it['item_id']}">
-        <content_type>Assignment</content_type>
+        <content_type>{it.get('content_type', 'Assignment')}</content_type>
         <workflow_state>{'active' if published else 'unpublished'}</workflow_state>
         <title>{esc(it['title'])}</title>
         <identifierref>{it['ref_id']}</identifierref>
@@ -239,7 +268,10 @@ def build(cfg_path, out_path):
       </item>""")
             org_items.append(f'        <item identifier="{iid}">\n          <title>{esc(it["title"])}</title>\n        </item>')
             continue
-        if it["type"] == "page":
+        if it["type"] == "quiz":
+            ref, ctype = quiz_ids[it["ref"]], "Quizzes::Quiz"
+            title = next(q["title"] for q in cfg["quizzes"] if q["key"] == it["ref"])
+        elif it["type"] == "page":
             ref, ctype = page_ids[it["ref"]], "WikiPage"
             title = next(p["title"] for p in cfg.get("pages", []) if p["key"] == it["ref"])
         else:
@@ -282,6 +314,11 @@ def build(cfg_path, out_path):
     for p in cfg.get("pages", []):
         f = f"wiki_content/{p['slug']}.html"
         res.append(f'    <resource identifier="{page_ids[p["key"]]}" type="webcontent" href="{f}">\n      <file href="{f}"/>\n    </resource>')
+    for ident in quiz_ids.values():
+        res.append(f"""    <resource identifier="{ident}" type="associatedcontent/imscc_xmlv1p1/learning-application-resource" href="{ident}/assessment_meta.xml">
+      <file href="{ident}/assessment_meta.xml"/>
+      <file href="non_cc_assessments/{ident}.xml.qti"/>
+    </resource>""")
     for a in cfg["assignments"]:
         aid = assign_ids[a["key"]]
         res.append(f"""    <resource identifier="{aid}" type="associatedcontent/imscc_xmlv1p1/learning-application-resource" href="{aid}/{a['key']}.html">
@@ -324,7 +361,7 @@ def build(cfg_path, out_path):
             z.writestr(path, text)
         for path, data in binaries.items():
             z.writestr(path, data)
-    print(f"Wrote {out_path}: {len(cfg.get('pages', []))} pages, {len(cfg['assignments'])} assignments, "
+    print(f"Wrote {out_path}: {len(cfg.get('pages', []))} pages, {len(cfg['assignments'])} assignments, {len(quiz_ids)} quizzes, "
           f"{len(binaries)} files, {len(ev_xml)} calendar events")
 
 

@@ -4,6 +4,7 @@
       "week_id": "2026-11-09",
       "num": 7,
       "title": "7. 11/9 Ticket In",
+      "content_type": "Assignment",
       "item_id": "g9000eb50002ab64bd94d11d4ead327c7",
       "ref_id": "gbc9de86d69b999ae10c5c3496ad18cf8"
     },
@@ -11,6 +12,7 @@
       "week_id": "2026-11-09",
       "num": 8,
       "title": "8. Not Magic, Just Technology",
+      "content_type": "Assignment",
       "item_id": "ge7c50a3ca0639962ac0bbe17e8b9d823",
       "ref_id": "g4b95b425de55420f024e288dee312541"
     },
@@ -18,28 +20,40 @@
       "week_id": "2026-11-09",
       "num": 9,
       "title": "9. 11/10 Ticket In",
+      "content_type": "Assignment",
       "item_id": "gb75c54cce9aad692a5acc7c85bf3f1aa",
       "ref_id": "g7fd3e9eb52d13a8330a0a6550785d0cf"
     },
     {
       "week_id": "2026-11-09",
       "num": 10,
-      "title": "10. Write the Algorithm",
-      "item_id": "gdd8fb6417bfcf36fb74fad3ee27cf552",
-      "ref_id": "g91f60c09fc3d7d0cbb45c8bef34e28d0"
+      "title": "10. Segment 2 Quiz",
+      "content_type": "Quizzes::Quiz",
+      "item_id": "gf20154ce04a897562aa3f66ec61cc932",
+      "ref_id": "g9c3f08a2a06285689d022a1d5bef5398"
     },
     {
       "week_id": "2026-11-09",
       "num": 11,
-      "title": "11. 11/13 Ticket In",
-      "item_id": "g79e5b5784a4aa3124a7e3bf481a603f2",
-      "ref_id": "g28ef270aef6ccb0739bd8908bab6755d"
+      "title": "11. Write the Algorithm",
+      "content_type": "Assignment",
+      "item_id": "g3a6981653b3ce3dade12db47d0197d73",
+      "ref_id": "g91f60c09fc3d7d0cbb45c8bef34e28d0"
     },
     {
       "week_id": "2026-11-09",
       "num": 12,
-      "title": "12. Where Will It Land?",
-      "item_id": "g40541c47d22d5eea192c60b9dafa21cc",
+      "title": "12. 11/13 Ticket In",
+      "content_type": "Assignment",
+      "item_id": "ge8b73d961e11408b0ca5c242d6064370",
+      "ref_id": "g28ef270aef6ccb0739bd8908bab6755d"
+    },
+    {
+      "week_id": "2026-11-09",
+      "num": 13,
+      "title": "13. Where Will It Land?",
+      "content_type": "Assignment",
+      "item_id": "g5c89856513180215b019318ed90a04b7",
       "ref_id": "g3003e694bcb3a25f4fbb2dbdc7f397cc"
     }
   ],
