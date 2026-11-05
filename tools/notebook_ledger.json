@@ -1,0 +1,62 @@
+{
+  "astro": [
+    {
+      "week_id": "2026-11-09",
+      "num": 7,
+      "title": "7. 11/9 Ticket In",
+      "item_id": "g9000eb50002ab64bd94d11d4ead327c7",
+      "ref_id": "gbc9de86d69b999ae10c5c3496ad18cf8"
+    },
+    {
+      "week_id": "2026-11-09",
+      "num": 8,
+      "title": "8. Not Magic, Just Technology",
+      "item_id": "ge7c50a3ca0639962ac0bbe17e8b9d823",
+      "ref_id": "g4b95b425de55420f024e288dee312541"
+    },
+    {
+      "week_id": "2026-11-09",
+      "num": 9,
+      "title": "9. 11/10 Ticket In",
+      "item_id": "gb75c54cce9aad692a5acc7c85bf3f1aa",
+      "ref_id": "g7fd3e9eb52d13a8330a0a6550785d0cf"
+    },
+    {
+      "week_id": "2026-11-09",
+      "num": 10,
+      "title": "10. Write the Algorithm",
+      "item_id": "gdd8fb6417bfcf36fb74fad3ee27cf552",
+      "ref_id": "g91f60c09fc3d7d0cbb45c8bef34e28d0"
+    },
+    {
+      "week_id": "2026-11-09",
+      "num": 11,
+      "title": "11. 11/13 Ticket In",
+      "item_id": "g79e5b5784a4aa3124a7e3bf481a603f2",
+      "ref_id": "g28ef270aef6ccb0739bd8908bab6755d"
+    },
+    {
+      "week_id": "2026-11-09",
+      "num": 12,
+      "title": "12. Where Will It Land?",
+      "item_id": "g40541c47d22d5eea192c60b9dafa21cc",
+      "ref_id": "g3003e694bcb3a25f4fbb2dbdc7f397cc"
+    }
+  ],
+  "ess": [
+    {
+      "week_id": "2026-11-09",
+      "num": 12,
+      "title": "12. Learning Guide: Gravity, Orbits, Motion",
+      "item_id": "g711e76ab975ee37beb4479edd4e09290",
+      "ref_id": "g8e52c850a9d4593094e54e402d844d4a"
+    },
+    {
+      "week_id": "2026-11-09",
+      "num": 13,
+      "title": "13. The Fastest Thing Ever Built",
+      "item_id": "gca291119e6dbd80b00c1961653269707",
+      "ref_id": "gf09565981fd2321551483c6f554a4171"
+    }
+  ]
+}

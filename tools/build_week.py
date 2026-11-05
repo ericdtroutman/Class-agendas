@@ -211,6 +211,21 @@ def build(cfg_path, out_path):
     mod_id = gid(cfg["course"], "module", nb["key"]) if nb else gid(*key, "module")
     module_title = nb["title"] if nb else cfg["module_title"]
     items_xml, org_items = [], []
+    # Canvas deletes every module item from an earlier import that is missing from this file
+    # ("clear out missing items afterwards" in Canvas's context_module_importer.rb). So each import
+    # re-lists everything imported into the notebook before (tools/notebook_ledger.json), with the
+    # same item IDs, pointing at the assignments already in the course. Items Eric adds by hand
+    # (no migration ID) are never touched. These go first so the order stays the same.
+    for it in cfg.get("existing_items", []):
+        items_xml.append(f"""      <item identifier="{it['item_id']}">
+        <content_type>Assignment</content_type>
+        <workflow_state>{'active' if published else 'unpublished'}</workflow_state>
+        <title>{esc(it['title'])}</title>
+        <identifierref>{it['ref_id']}</identifierref>
+        <position>{it['num']}</position>
+        <new_tab/>
+        <indent>0</indent>
+      </item>""")
     for pos, it in enumerate(cfg["module_items"], start=first_pos):
         iid = gid(*key, "item", str(pos), it.get("ref", it.get("title", "")))
         if it["type"] == "header":

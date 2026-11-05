@@ -99,11 +99,27 @@ def main(spec_path, out_dir):
     week = {"course": c["course"], "week_id": spec["week_id"], "timezone": "America/New_York", "publish": True,
             "pages": pages, "files": files, "assignments": assignments, "module_items": items,
             "notebook": {"key": c["nb"], "title": c["nb_title"], "start": spec["start"]}}
+    # Everything imported into the notebook before this week goes back into the file, or Canvas
+    # removes it from the module (see build_week.py). Re-running a week replaces that week's entries.
+    ledger_path = Path(__file__).parent / "notebook_ledger.json"
+    ledger = json.loads(ledger_path.read_text()) if ledger_path.exists() else {}
+    earlier = sorted((e for e in ledger.get(spec["class"], []) if e["week_id"] != spec["week_id"]), key=lambda e: e["num"])
+    if earlier and spec["start"] != earlier[-1]["num"] + 1:
+        print(f"WARNING: start is {spec['start']} but the ledger's last item is {earlier[-1]['num']}. {earlier[-1]['title']}")
+    week["existing_items"] = earlier
     (out / "week.json").write_text(json.dumps(week, indent=2))
     wk = date.fromisoformat(spec["week_id"])
     imscc = out / f"{c['file']}_Week_of_{wk:%m-%d}.imscc"
     build_week.build(out / "week.json", imscc)
     check(imscc)
+    mine = []
+    for pos, (a, (title, *_)) in enumerate(zip(assignments, table), spec["start"]):
+        mine.append({"week_id": spec["week_id"], "num": pos, "title": f"{pos}. {title}",
+                     "item_id": build_week.gid(c["course"], spec["week_id"], "item", str(pos), a["key"]),
+                     "ref_id": build_week.gid(c["course"], spec["week_id"], "assignment", a["key"])})
+    ledger[spec["class"]] = earlier + mine
+    ledger_path.write_text(json.dumps(ledger, indent=2) + "\n")
+    print(f"Module in this file: {len(earlier)} earlier imported items + {len(mine)} new. Ledger updated: commit tools/notebook_ledger.json.")
     print(f"\n| # | Item | Points | Due | Type | File |\n|---|---|---|---|---|---|")
     for n, (title, pts, d, sub, pdf) in enumerate(table, spec["start"]):
         print(f"| {n} | {title} | {'none' if pts is None else pts} | {d:%a} {md_(d)} | {sub.replace('_', ' ')} | {pdf} |")
