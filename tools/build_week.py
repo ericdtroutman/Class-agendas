@@ -174,7 +174,8 @@ def build(cfg_path, out_path):
     # ---- pages
     page_ids, page_slugs = {}, {}
     for p in cfg.get("pages", []):
-        page_ids[p["key"]] = gid(*key, "page", p["key"])
+        # course_wide pages (anchor charts in progress) keep one ID across weeks, so a later week updates the same page
+        page_ids[p["key"]] = gid(cfg["course"], "page", p["key"]) if p.get("course_wide") else gid(*key, "page", p["key"])
         page_slugs[p["key"]] = p["slug"]
     for p in cfg.get("pages", []):
         body = resolve((base / p["body_file"]).read_text(), page_slugs)

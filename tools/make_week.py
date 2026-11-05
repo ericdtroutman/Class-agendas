@@ -13,7 +13,9 @@ spec.json:
     {"type": "paper", "title": "Write the Algorithm", "date": "2026-11-10",
      "pdf": "pdf/Write the Algorithm (Student Copy).pdf", "body": "One or two sentences for students."},
     {"type": "mastery", "title": "Carbon Cycle Mastery Check", "date": "2026-10-29"},   # ESS quiz placeholder, no points
-    {"type": "entry", "title": "Rock Cycle Put It Together", "date": "2026-10-27", "pdf": "..."}  # ESS entry ticket, 1 pt
+    {"type": "entry", "title": "Rock Cycle Put It Together", "date": "2026-10-27", "pdf": "..."},  # ESS entry ticket, 1 pt
+    {"type": "page", "title": "Anchor Chart 3 (in progress)", "date": "2026-11-13", "pdf": "...",
+     "body": "...", "days": ["Fri 11/13: pages 2 and 3 (Gravity and Orbits)"]}   # unnumbered page + calendar event
   ]
 }
 Order items in the order things happen. Due = 11:59 PM that day. Everything on paper unless "submission" is given.
@@ -48,10 +50,28 @@ def main(spec_path, out_dir):
     spec = json.loads(spec_path.read_text())
     c = CLASSES[spec["class"]]
     out = Path(out_dir); (out / "assignments").mkdir(parents=True, exist_ok=True); (out / "pdf").mkdir(exist_ok=True)
-    assignments, items, files, table = [], [], [], []
+    assignments, items, files, table, pages = [], [], [], [], []
     for it in spec["items"]:
         d = date.fromisoformat(it["date"])
         t = it["type"]
+        if t == "page":
+            # ESS "Anchor Chart N (in progress)": a Canvas page, not numbered, not in the notebook module;
+            # a calendar event on its date links to it.
+            key = it.get("key") or slug(it["title"])
+            body = f"<p>{html.escape(it['body'])}</p>\n" if it.get("body") else ""
+            if it.get("days"):
+                body += "<ul>\n" + "".join(f"<li>{html.escape(x)}</li>\n" for x in it["days"]) + "</ul>\n"
+            if it.get("pdf"):
+                src = (spec_path.parent / it["pdf"]).resolve()
+                shutil.copy(src, out / "pdf" / src.name)
+                files.append({"src": f"pdf/{src.name}", "path": f"{c['nb']}/{src.name}"})
+                body += (f'<p><a class="instructure_file_link instructure_scribd_file auto_open" title="{html.escape(src.name)}" '
+                         f'href="$IMS-CC-FILEBASE$/{c["nb"]}/{html.escape(src.name)}">{html.escape(src.name)}</a></p>\n')
+            (out / "pages").mkdir(exist_ok=True)
+            (out / f"pages/{key}.html").write_text(body or "<p></p>\n")
+            pages.append({"key": key, "slug": key, "title": it["title"], "body_file": f"pages/{key}.html",
+                          "date": d.isoformat(), "course_wide": True})
+            continue
         if t == "ticket":
             title, key, pts, sub = f"{md_(d)} Ticket In", f"ticket-in-{d:%m-%d}", 1, ["online_text_entry"]
             body = "<p>Answer today's Ticket In question from the board.</p>\n"
@@ -77,7 +97,7 @@ def main(spec_path, out_dir):
         items.append({"type": "assignment", "ref": key})
         table.append((title, pts, d, sub[0], Path(it["pdf"]).name if it.get("pdf") else ""))
     week = {"course": c["course"], "week_id": spec["week_id"], "timezone": "America/New_York", "publish": True,
-            "pages": [], "files": files, "assignments": assignments, "module_items": items,
+            "pages": pages, "files": files, "assignments": assignments, "module_items": items,
             "notebook": {"key": c["nb"], "title": c["nb_title"], "start": spec["start"]}}
     (out / "week.json").write_text(json.dumps(week, indent=2))
     wk = date.fromisoformat(spec["week_id"])
@@ -87,6 +107,9 @@ def main(spec_path, out_dir):
     print(f"\n| # | Item | Points | Due | Type | File |\n|---|---|---|---|---|---|")
     for n, (title, pts, d, sub, pdf) in enumerate(table, spec["start"]):
         print(f"| {n} | {title} | {'none' if pts is None else pts} | {d:%a} {md_(d)} | {sub.replace('_', ' ')} | {pdf} |")
+    for p in pages:
+        d = date.fromisoformat(p["date"])
+        print(f"| page | {p['title']} | none | {d:%a} {md_(d)} (calendar) | Canvas page | |")
     print(f"\nNext {c['nb_title']} number: {spec['start'] + len(table)}")
 
 
