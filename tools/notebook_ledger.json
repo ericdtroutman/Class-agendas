@@ -4,57 +4,121 @@
       "week_id": "2026-11-09",
       "num": 7,
       "title": "7. 11/9 Ticket In",
-      "content_type": "Assignment",
       "item_id": "g9000eb50002ab64bd94d11d4ead327c7",
-      "ref_id": "gbc9de86d69b999ae10c5c3496ad18cf8"
+      "ref_id": "gbc9de86d69b999ae10c5c3496ad18cf8",
+      "content_type": "Assignment"
     },
     {
       "week_id": "2026-11-09",
       "num": 8,
       "title": "8. Not Magic, Just Technology",
-      "content_type": "Assignment",
       "item_id": "ge7c50a3ca0639962ac0bbe17e8b9d823",
-      "ref_id": "g4b95b425de55420f024e288dee312541"
+      "ref_id": "g4b95b425de55420f024e288dee312541",
+      "content_type": "Assignment"
     },
     {
       "week_id": "2026-11-09",
       "num": 9,
       "title": "9. 11/10 Ticket In",
-      "content_type": "Assignment",
       "item_id": "gb75c54cce9aad692a5acc7c85bf3f1aa",
-      "ref_id": "g7fd3e9eb52d13a8330a0a6550785d0cf"
+      "ref_id": "g7fd3e9eb52d13a8330a0a6550785d0cf",
+      "content_type": "Assignment"
     },
     {
       "week_id": "2026-11-09",
       "num": 10,
-      "title": "10. Segment 2 Quiz",
-      "content_type": "Quizzes::Quiz",
-      "item_id": "gf20154ce04a897562aa3f66ec61cc932",
-      "ref_id": "g9c3f08a2a06285689d022a1d5bef5398"
+      "title": "10. Write the Algorithm",
+      "item_id": "gdd8fb6417bfcf36fb74fad3ee27cf552",
+      "ref_id": "g91f60c09fc3d7d0cbb45c8bef34e28d0",
+      "content_type": "Assignment"
     },
     {
       "week_id": "2026-11-09",
       "num": 11,
-      "title": "11. Write the Algorithm",
-      "content_type": "Assignment",
-      "item_id": "g3a6981653b3ce3dade12db47d0197d73",
-      "ref_id": "g91f60c09fc3d7d0cbb45c8bef34e28d0"
+      "title": "11. 11/13 Ticket In",
+      "item_id": "g79e5b5784a4aa3124a7e3bf481a603f2",
+      "ref_id": "g28ef270aef6ccb0739bd8908bab6755d",
+      "content_type": "Assignment"
     },
     {
       "week_id": "2026-11-09",
       "num": 12,
-      "title": "12. 11/13 Ticket In",
-      "content_type": "Assignment",
-      "item_id": "ge8b73d961e11408b0ca5c242d6064370",
-      "ref_id": "g28ef270aef6ccb0739bd8908bab6755d"
+      "title": "12. Where Will It Land?",
+      "item_id": "g40541c47d22d5eea192c60b9dafa21cc",
+      "ref_id": "g3003e694bcb3a25f4fbb2dbdc7f397cc",
+      "content_type": "Assignment"
     },
     {
-      "week_id": "2026-11-09",
+      "week_id": "2026-11-16",
       "num": 13,
-      "title": "13. Where Will It Land?",
+      "title": "13. Segment 3 Quiz",
+      "content_type": "Quizzes::Quiz",
+      "item_id": "g624a55ba7a93e585b0c9b7a4aa64f373",
+      "ref_id": "g225f18d1a28b2291692d94ce7cfd2a4f"
+    },
+    {
+      "week_id": "2026-11-16",
+      "num": 14,
+      "title": "14. Park the Recovery Ships",
       "content_type": "Assignment",
-      "item_id": "g5c89856513180215b019318ed90a04b7",
-      "ref_id": "g3003e694bcb3a25f4fbb2dbdc7f397cc"
+      "item_id": "gd712e843937597e3e56a5a3140823274",
+      "ref_id": "g3737d95b400362b1ed22f38fd7cf3938"
+    },
+    {
+      "week_id": "2026-11-16",
+      "num": 15,
+      "title": "15. 11/17 Ticket In",
+      "content_type": "Assignment",
+      "item_id": "g652e1b1086acbe7f5b5992347a8c8c12",
+      "ref_id": "g048f5c3e08bbd62f4acbb67132af9f4f"
+    },
+    {
+      "week_id": "2026-11-16",
+      "num": 16,
+      "title": "16. 11/18 Ticket In",
+      "content_type": "Assignment",
+      "item_id": "ge17c2c26b0c71c3600a894fbde671d00",
+      "ref_id": "gd44df785fcaad0c0a7cf38a2220dc646"
+    },
+    {
+      "week_id": "2026-11-16",
+      "num": 17,
+      "title": "17. Check the Numbers Guided Notes",
+      "content_type": "Assignment",
+      "item_id": "g912fe0821548dd95c07c878f39cad275",
+      "ref_id": "gcffac39566bb5d1381f08c140e7cc044"
+    },
+    {
+      "week_id": "2026-11-16",
+      "num": 18,
+      "title": "18. Segment 4 Quiz",
+      "content_type": "Quizzes::Quiz",
+      "item_id": "g9472b9849468c28b71020afe562fa370",
+      "ref_id": "gf9b2a01b3f99dc7ddbbb60ceffc713fd"
+    },
+    {
+      "week_id": "2026-11-16",
+      "num": 19,
+      "title": "19. Check the Computer's Work",
+      "content_type": "Assignment",
+      "item_id": "gaf45b2d1c0c894f7cfbdcc55fc82e77d",
+      "ref_id": "g65b66646c58b6f76579b3fb9d4362488"
+    },
+    {
+      "week_id": "2026-11-16",
+      "num": 20,
+      "title": "20. 11/20 Ticket In",
+      "content_type": "Assignment",
+      "item_id": "g2c5a07ed5edd13cfb5a10d3cc787907a",
+      "ref_id": "gb443632bdbfddea822047e50ee0873d2"
+    },
+    {
+      "week_id": "2026-11-16",
+      "num": 21,
+      "title": "21. Hidden Figures Today Project",
+      "content_type": "Assignment",
+      "item_id": "g15b637a0a89ad04e53cb5863bcb76a77",
+      "ref_id": "g2a9948aed600bac7bc8ec26dd2930d5f"
     }
   ],
   "ess": [
@@ -71,6 +135,30 @@
       "title": "13. The Fastest Thing Ever Built",
       "item_id": "gca291119e6dbd80b00c1961653269707",
       "ref_id": "gf09565981fd2321551483c6f554a4171"
+    },
+    {
+      "week_id": "2026-11-16",
+      "num": 14,
+      "title": "14. Steal a Planet's Speed",
+      "content_type": "Assignment",
+      "item_id": "gd621afa2219238f1704817178291ebf8",
+      "ref_id": "g6652315d0b3d57a76d7abc99c1168967"
+    },
+    {
+      "week_id": "2026-11-16",
+      "num": 15,
+      "title": "15. Farther Than the Moon",
+      "content_type": "Assignment",
+      "item_id": "gd5e541dc88fbd77ee24036ff5dd63b49",
+      "ref_id": "g792f904829cd75224d4dec2bb2467d1f"
+    },
+    {
+      "week_id": "2026-11-16",
+      "num": 16,
+      "title": "16. Learning Guide: The Earth-Sun System",
+      "content_type": "Assignment",
+      "item_id": "g913fa11bcff8aefa77b22f080575cacf",
+      "ref_id": "gc7c4bb34c5f459e44b85ecd47965e20e"
     }
   ]
 }
