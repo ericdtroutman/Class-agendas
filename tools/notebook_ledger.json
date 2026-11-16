@@ -50,14 +50,6 @@
     },
     {
       "week_id": "2026-11-16",
-      "num": 13,
-      "title": "13. Segment 3 Quiz",
-      "content_type": "Quizzes::Quiz",
-      "item_id": "g624a55ba7a93e585b0c9b7a4aa64f373",
-      "ref_id": "g225f18d1a28b2291692d94ce7cfd2a4f"
-    },
-    {
-      "week_id": "2026-11-16",
       "num": 14,
       "title": "14. Park the Recovery Ships",
       "content_type": "Assignment",
@@ -87,14 +79,6 @@
       "content_type": "Assignment",
       "item_id": "g912fe0821548dd95c07c878f39cad275",
       "ref_id": "gcffac39566bb5d1381f08c140e7cc044"
-    },
-    {
-      "week_id": "2026-11-16",
-      "num": 18,
-      "title": "18. Segment 4 Quiz",
-      "content_type": "Quizzes::Quiz",
-      "item_id": "g9472b9849468c28b71020afe562fa370",
-      "ref_id": "gf9b2a01b3f99dc7ddbbb60ceffc713fd"
     },
     {
       "week_id": "2026-11-16",
