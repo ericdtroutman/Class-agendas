@@ -30,6 +30,7 @@ OVERRIDES = {
 # his date -> what he did instead of her lesson (on purpose).
 SWAPS = {
     "2026-10-26": "Rock Odyssey (film) in place of her In Class Lab 3 (crayon rock cycle)",
+    "2026-11-18": "Farther Than the Moon only; Eric is not doing her Artemis II Video Log (Eric, 11/18)",
 }
 
 
