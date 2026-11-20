@@ -115,9 +115,17 @@
     {
       "week_id": "2026-11-23",
       "num": 23,
-      "title": "23. Thanksgiving on the ISS",
+      "title": "23. 11/24 Ticket In",
       "content_type": "Assignment",
-      "item_id": "gb47126666014ddf87fc61a042d2e3591",
+      "item_id": "g15869e42e88cd8df941170d80a0b0d00",
+      "ref_id": "ga890e9eee100c8d59946dc09f6474de4"
+    },
+    {
+      "week_id": "2026-11-23",
+      "num": 24,
+      "title": "24. Thanksgiving on the ISS",
+      "content_type": "Assignment",
+      "item_id": "g614680f87b6beee0bb577fd9b6f44038",
       "ref_id": "gbdfa65656ffe57ea9d8cb21a2bb6139b"
     }
   ],
