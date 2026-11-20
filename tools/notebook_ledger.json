@@ -103,6 +103,22 @@
       "content_type": "Assignment",
       "item_id": "g15b637a0a89ad04e53cb5863bcb76a77",
       "ref_id": "g2a9948aed600bac7bc8ec26dd2930d5f"
+    },
+    {
+      "week_id": "2026-11-23",
+      "num": 22,
+      "title": "22. 11/23 Ticket In",
+      "content_type": "Assignment",
+      "item_id": "gb60bdee35884026364ba272be970be85",
+      "ref_id": "g8389b109d49a782a6c17a467e7b07417"
+    },
+    {
+      "week_id": "2026-11-23",
+      "num": 23,
+      "title": "23. Thanksgiving on the ISS",
+      "content_type": "Assignment",
+      "item_id": "gb47126666014ddf87fc61a042d2e3591",
+      "ref_id": "gbdfa65656ffe57ea9d8cb21a2bb6139b"
     }
   ],
   "ess": [
@@ -159,6 +175,22 @@
       "content_type": "Assignment",
       "item_id": "g06d061402df0fac064c083a00e435097",
       "ref_id": "g43677b0d738765b2ea4e144d0db68507"
+    },
+    {
+      "week_id": "2026-11-23",
+      "num": 19,
+      "title": "19. Quarterly Review",
+      "content_type": "Assignment",
+      "item_id": "g06373cd109ee64df6a2d9b91cd1d4c8a",
+      "ref_id": "gc4701bdd8f5e69f0b65dacae4332e02d"
+    },
+    {
+      "week_id": "2026-11-23",
+      "num": 20,
+      "title": "20. Design a Buffalo House",
+      "content_type": "Assignment",
+      "item_id": "g62879dc3623022c8d11e775147b04e9c",
+      "ref_id": "g3b8d1713cd37a8ee97f1c32835b916cd"
     }
   ]
 }
