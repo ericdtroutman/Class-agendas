@@ -34,8 +34,9 @@ SWAPS = {
     "2026-11-20": "Anchor Chart 3 pages 4-5 (Seasons and Motion in the Sky) moved up from 11/30; Unearthing Mars moved to 11/30-12/1 for supplies (Eric, 11/20)",
     "2026-11-23": "Quarterly Review only (no Lab Letter), then start Design a Buffalo House with the interactive; Mars finish moved to 12/1 (Eric, 11/20)",
     "2026-11-24": "Finish Design a Buffalo House, no Artemis Video Log (Eric, 11/20)",
-    "2026-11-30": "Unearthing Mars Investigation day 1 (moved from 11/20 for supplies) in place of her Buffalo House + Anchor Chart (both done earlier) (Eric, 11/20)",
-    "2026-12-01": "Her Mastery Check + start LG3, plus finish Unearthing Mars (due 12/2) (Eric, 11/20)",
+    "2026-11-30": "Electives Expo, no ESS class (same day as hers, not shifted); her 11/24 Buffalo House + Anchor Chart were done 11/20-11/24 (Eric, 11/20)",
+    "2026-12-01": "Unearthing Mars Investigation day 1 (moved from 11/20 for supplies); her row here is the Expo (Eric, 11/20)",
+    "2026-12-02": "Finish Unearthing Mars (due 12/3), then her 12/1 (Shortest Day review + start LG3); normal one-day shift resumes 12/3 (Eric, 11/20)",
 }
 
 
