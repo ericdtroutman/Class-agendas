@@ -32,6 +32,10 @@ SWAPS = {
     "2026-10-26": "Rock Odyssey (film) in place of her In Class Lab 3 (crayon rock cycle)",
     "2026-11-18": "Farther Than the Moon only; Eric is not doing her Artemis II Video Log (Eric, 11/18)",
     "2026-11-20": "Anchor Chart 3 pages 4-5 (Seasons and Motion in the Sky) moved up from 11/30; Unearthing Mars moved to 11/30-12/1 for supplies (Eric, 11/20)",
+    "2026-11-23": "Quarterly Review + Lab Letter, then Thanksgiving Sunlight (moved up from 11/30); Mars finish moved to 12/1 (Eric, 11/20)",
+    "2026-11-24": "Design a Buffalo House only, no Artemis Video Log (Eric, 11/20)",
+    "2026-11-30": "Unearthing Mars Investigation day 1 (moved from 11/20 for supplies) in place of her Anchor Chart + Thanksgiving Sunlight (Eric, 11/20)",
+    "2026-12-01": "Her Mastery Check + start LG3, plus finish Unearthing Mars (due 12/2) (Eric, 11/20)",
 }
 
 
