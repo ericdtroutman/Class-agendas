@@ -127,6 +127,38 @@
       "content_type": "Assignment",
       "item_id": "g614680f87b6beee0bb577fd9b6f44038",
       "ref_id": "gbdfa65656ffe57ea9d8cb21a2bb6139b"
+    },
+    {
+      "week_id": "2026-11-30",
+      "num": 25,
+      "title": "25. 12/1 Ticket In",
+      "content_type": "Assignment",
+      "item_id": "g836e16bf3599386ba9344f42e6491a35",
+      "ref_id": "g521bab7a5e8535150223b2d20c104354"
+    },
+    {
+      "week_id": "2026-11-30",
+      "num": 26,
+      "title": "26. 12/3 Ticket In",
+      "content_type": "Assignment",
+      "item_id": "gc111d5c6473163a712a4fb1cf1d898e1",
+      "ref_id": "ge50ca12a2361a2befa6bacaae75659f6"
+    },
+    {
+      "week_id": "2026-11-30",
+      "num": 27,
+      "title": "27. Three Ways to Die on Mars",
+      "content_type": "Assignment",
+      "item_id": "g95f44e796ff6459e069baf04d2ce2245",
+      "ref_id": "g680087ede8728ce33e6f4a9cdb27de63"
+    },
+    {
+      "week_id": "2026-11-30",
+      "num": 28,
+      "title": "28. Survive Like Watney",
+      "content_type": "Assignment",
+      "item_id": "g711cf73b0054e9879df52bfca218e5a2",
+      "ref_id": "g32c09b11f8ffb52f5e4f39b12740bf41"
     }
   ],
   "ess": [
@@ -199,6 +231,14 @@
       "content_type": "Assignment",
       "item_id": "g62879dc3623022c8d11e775147b04e9c",
       "ref_id": "g3b8d1713cd37a8ee97f1c32835b916cd"
+    },
+    {
+      "week_id": "2026-11-30",
+      "num": 21,
+      "title": "21. Learning Guide: The Earth-Moon System",
+      "content_type": "Assignment",
+      "item_id": "g2bd6b65a51ea9a44749833449f36cf54",
+      "ref_id": "gb2174ba85cb2d43df286a8740331a174"
     }
   ]
 }
